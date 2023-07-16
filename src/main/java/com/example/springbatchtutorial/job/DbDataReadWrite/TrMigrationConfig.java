@@ -76,13 +76,24 @@ public class TrMigrationConfig {
                 .build();
     }
 
+//    @StepScope
+//    @Bean
+//    public RepositoryItemWriter<Accounts> trOrdersWriter() {
+//        return new RepositoryItemWriterBuilder<Accounts>()
+//                .repository(accountsRepository)
+//                .methodName("save")
+//                .build();
+//    }
+
     @StepScope
     @Bean
-    public RepositoryItemWriter<Accounts> trOrdersWriter() {
-        return new RepositoryItemWriterBuilder<Accounts>()
-                .repository(accountsRepository)
-                .methodName("save")
-                .build();
+    public ItemWriter<Accounts> trOrdersWriter() {
+        return new ItemWriter<Accounts>() {
+            @Override
+            public void write(List<? extends Accounts> items) throws Exception {
+                items.forEach(item -> accountsRepository.save(item));
+            }
+        };
     }
 
     @StepScope
