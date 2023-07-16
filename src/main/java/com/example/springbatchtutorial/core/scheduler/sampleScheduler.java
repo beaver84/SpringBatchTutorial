@@ -18,18 +18,18 @@ import java.util.Collections;
 public class sampleScheduler {
 
     @Autowired
-    private Job helloWorldJob;
+    private Job trMigrationJob;
 
     @Autowired
     private JobLauncher jobLauncher;
 
-//    @Scheduled(cron = "0 */1 * * * *")
-//    public void helloWorldJobRun() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-//
-//        JobParameters jobParameters = new JobParameters(
-//                Collections.singletonMap("requestTime", new JobParameter(System.currentTimeMillis()))
-//        );
-//
-//        jobLauncher.run(helloWorldJob, jobParameters);
-//    }
+    @Scheduled(cron = "*/20 * * * * *")
+    public void helloWorldJobRun() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+
+        JobParameters jobParameters = new JobParameters(
+                Collections.singletonMap("requestTime", new JobParameter(System.currentTimeMillis()))
+        );
+
+        jobLauncher.run(trMigrationJob, jobParameters);
+    }
 }
